@@ -7,8 +7,6 @@ const fs = require("fs");
     let gate = new ccxt.gate();
     await gate.loadMarkets();
     let gateTokens = Object.keys(gate.currencies);
-    //console.dir(gateTokens, {'maxArrayLength': null});
-    //console.log(gateTokens.length);
 
     //парсимо токени які вже процесяться
     let processedTokens = JSON.parse(fs.readFileSync("processed_symbols.rtf", "utf8"));
@@ -16,8 +14,6 @@ const fs = require("fs");
         let symbol = processedTokens[i];
         processedTokens[i] = symbol.split('/')[0].split('-')[0];
     }
-    //console.dir(processedTokens, {'maxArrayLength': null});
-    //console.log(processedTokens.length);
 
     //парсимо токени з uniswap
     let uniswapTokens = JSON.parse(fs.readFileSync("uniswapCurrency.txt", "utf8"));
@@ -25,8 +21,6 @@ const fs = require("fs");
         let currency = uniswapTokens[i];
         uniswapTokens[i] = currency["domainTicker"].split('-')[0];
     }
-    //console.dir(uniswapTokens, {'maxArrayLength': null});
-    //console.log(uniswapTokens.length);
 
     //шукаємо які токени з gate є на uniswap, але ще не процесяться
     let newTokens = {totalCurrencies: 0};
@@ -34,8 +28,6 @@ const fs = require("fs");
         let token = gateTokens[i];
         if (uniswapTokens.includes(token) && !processedTokens.includes(token)) newTokens[token] = [];
     }
-    //console.dir(newTokens, {'maxArrayLength': null});
-    //console.log(newTokens.length);
 
     //додаємо усі trade-пари з кожним із знайдених токенів
     let gateSymbols = gate.symbols;
