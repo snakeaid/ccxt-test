@@ -9,7 +9,7 @@ const fs = require("fs");
     let gateTokens = Object.keys(gate.currencies);
 
     //парсимо токени які вже процесяться
-    let processedTokens = JSON.parse(fs.readFileSync("processed_symbols.rtf", "utf8"));
+    let processedTokens = JSON.parse(fs.readFileSync("processed_tokens.rtf", "utf8"));
     for (let i = 0; i < processedTokens.length; i++) {
         let symbol = processedTokens[i];
         processedTokens[i] = symbol.split('/')[0].split('-')[0];
